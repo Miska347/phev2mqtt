@@ -178,6 +178,8 @@ func (m *mqttClient) Run(cmd *cobra.Command, args []string) error {
 		SetUsername(mqttUsername).
 		SetPassword(mqttPassword).
 		SetAutoReconnect(true).
+	    	SetConnectRetry(true).   // yrittää yhdistää, jos epäonnistuu
+    		SetConnectRetryInterval(5 * time.Second). // yrittää uudelleen 5 s välein
 		SetDefaultPublishHandler(m.handleIncomingMqtt).
 		SetWill(m.topic("/available"), "offline", 0, true)
 
